@@ -2,19 +2,16 @@ package com.paul.web
 
 import com.paul.service.TreasureHuntService
 import groovy.transform.CompileStatic
-import groovy.util.logging.Slf4j
+import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Produces
-import io.micronaut.http.MediaType
 import io.micronaut.retry.annotation.CircuitBreaker
-import io.reactivex.Single
 
 import javax.inject.Inject
 
 @CompileStatic
 @Controller("/")
-@Slf4j
 class TreasureHuntController {
 
     TreasureHuntService treasureHuntService
@@ -25,7 +22,7 @@ class TreasureHuntController {
                         41, 42, 43, 44, 45,
                         51, 52, 53, 54, 55]
 
-    def isInputOk(Integer x) {allowedInput.any({ it == x })}
+    def isInputOk(Integer x) { allowedInput.any({ it == x }) }
 
 
     @Inject

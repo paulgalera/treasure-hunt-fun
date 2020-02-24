@@ -16,7 +16,7 @@ class TreasureHuntServiceTest extends Specification {
 
     def "testFindTreasure11"() {
         when:
-        String path = treasureHuntService.findTreasure(11)
+        String path = treasureHuntService.ffindTreasure(11)
 
         then:
         path == "1 1\n" +

@@ -1,10 +1,7 @@
 package com.paul.domain
 
-import groovy.util.logging.Slf4j
-
 import javax.inject.Singleton
 
-@Slf4j
 @Singleton
 final class TreasureHunter {
 
@@ -22,9 +19,9 @@ final class TreasureHunter {
     def getClue = { r, c -> ftreasureMap[r][c] }
 
     def fpokeLocation = { location -> getClue(row(location), col(location)) }.memoize()
-    def fisTreasureFound = {clue, location -> clue == location}
+    def fisTreasureFound = { clue, location -> clue == location }
 
-    def fgoCheckInitialSpots = {startPoint ->
+    def fgoCheckInitialSpots = { startPoint ->
         def treasureFound = false
         def initialSpots = [startPoint] + initialSpots
         def initialPath = []
@@ -41,7 +38,7 @@ final class TreasureHunter {
 
 
     // TODO: is there any sense to trampoline it
-    def fdigForTreasure = {location, ArrayList initialPath ->
+    def fdigForTreasure = { location, ArrayList initialPath ->
         def treasurePath = new ArrayList(initialPath)
         def clueFound = fpokeLocation(location)
         treasurePath.add(location)
@@ -52,12 +49,12 @@ final class TreasureHunter {
         return fdigForTreasure(clueFound, treasurePath)
     }
 
-    def fgoHuntingForTreasure = {location ->
+    def fgoHuntingForTreasure = { location ->
         def wholeTreasurePath = []
         def found, initialPath
         (found, initialPath) = fgoCheckInitialSpots(location)
         wholeTreasurePath.addAll(initialPath)
-        if (!found){
+        if (!found) {
             wholeTreasurePath = fdigForTreasure(fpokeLocation(wholeTreasurePath[-1]), wholeTreasurePath)
         }
         wholeTreasurePath
